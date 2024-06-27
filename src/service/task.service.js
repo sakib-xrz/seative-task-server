@@ -17,7 +17,8 @@ const handleCreateTask = async (taskData, user) => {
     status: taskData?.status || "todo",
     priority: taskData?.priority || "low",
     duration: taskData?.duration || 0,
-    due_date: taskData?.due_date || Date.now(),
+    // due_date: taskData?.due_date || Date.now(),
+    due_date: new Date(Date.now() - 24 * 60 * 60 * 1000),
   });
 
   return {
