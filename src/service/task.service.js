@@ -43,7 +43,7 @@ const handleGetTasks = async (filters, sortBy = "createdAt", order = "asc") => {
     sortOptions[sortBy] = order === "desc" ? -1 : 1;
   }
 
-  const tasks = await Task.find(filters).sort(sortOptions);
+  const tasks = await Task.find(filters).sort(sortOptions).populate("creator");
 
   if (sortBy === "priority") {
     tasks.sort((a, b) => {
@@ -74,7 +74,7 @@ const handleGetSingleTask = async (taskId) => {
   };
 };
 
-const handleEditTask = async (taskId, taskData, user) => {
+const handleEditTask = async (taskId, taskData) => {
   const task = await Task.findById(taskId);
 
   if (!task) {
