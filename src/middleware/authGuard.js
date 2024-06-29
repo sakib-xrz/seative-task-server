@@ -20,7 +20,6 @@ const authGuard = () => {
       // Verify token
       const decoded = jwt.verify(token, secret);
       req.user = decoded;
-
       const user = await User.findById(decoded._id);
 
       if (!user) {

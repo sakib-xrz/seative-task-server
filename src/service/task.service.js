@@ -43,7 +43,9 @@ const handleGetTasks = async (filters, sortBy = "createdAt", order = "asc") => {
     sortOptions[sortBy] = order === "desc" ? -1 : 1;
   }
 
-  const tasks = await Task.find(filters).sort(sortOptions).populate("creator");
+  const tasks = await Task.find(filters)
+    .sort(sortOptions)
+    .populate({ path: "creator", select: "name email profile_picture" });
 
   if (sortBy === "priority") {
     tasks.sort((a, b) => {

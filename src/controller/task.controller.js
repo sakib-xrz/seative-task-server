@@ -3,11 +3,9 @@ const sendResponse = require("../utils/sendResponse.js");
 
 const TaskService = require("../service/task.service.js");
 
-const { faker } = require("@faker-js/faker");
-
 const createTask = catchAsync(async (req, res) => {
   const { ...taskData } = req.body;
-  const { user } = req.user;
+  const user = req.user;
 
   const result = await TaskService.handleCreateTask(taskData, user);
 
@@ -63,7 +61,7 @@ const getSingleTask = catchAsync(async (req, res) => {
 const editTask = catchAsync(async (req, res) => {
   const { taskId } = req.params;
   const { ...taskData } = req.body;
-  const { user } = req.user;
+  const user = req.user;
 
   const result = await TaskService.handleEditTask(taskId, taskData, user);
 
@@ -91,8 +89,7 @@ const deleteTask = catchAsync(async (req, res) => {
 
 const generateFakeTasks = catchAsync(async (req, res) => {
   const { ...taskData } = req.body;
-  const { user } = req.user;
-
+  const user = req.user;
   const result = await TaskService.handleGenerateFakeTasks(taskData, user);
 
   sendResponse(res, {
