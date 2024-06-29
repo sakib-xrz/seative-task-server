@@ -22,15 +22,15 @@ const createTask = catchAsync(async (req, res) => {
 });
 
 const getTasks = catchAsync(async (req, res) => {
-  const { priority, status, duration, deadline, search, sortBy, order } =
+  const { priority, status, duration, due_date, search, sortBy, order } =
     req.query;
 
   // Create filters object
   const filters = {
     ...(priority && { priority }),
     ...(status && { status }),
-    ...(duration && { duration: { $lte: duration } }),
-    ...(deadline && { due_date: { $lte: new Date(deadline) } }),
+    ...(duration && { duration }),
+    ...(due_date && { due_date }),
     ...(search && { title: { $regex: search, $options: "i" } }),
   };
 

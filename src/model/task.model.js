@@ -34,8 +34,7 @@ const taskSchema = new mongoose.Schema(
       default: 0,
     },
     due_date: {
-      type: Date,
-      default: Date.now,
+      type: String,
     },
   },
   {
