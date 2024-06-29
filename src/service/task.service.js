@@ -126,6 +126,7 @@ const handleGenerateFakeTasks = async (taskData, user) => {
     const fakeTaskData = {
       title: faker.lorem.sentence(),
       description: faker.lorem.paragraph(),
+      creator: user?._id,
       assigns: [],
       status: faker.helpers.arrayElement(["todo", "in-progress", "completed"]),
       priority: faker.helpers.arrayElement(["high", "medium", "low"]),
