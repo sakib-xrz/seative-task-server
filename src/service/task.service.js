@@ -28,7 +28,11 @@ const handleCreateTask = async (taskData, user) => {
   };
 };
 
-const handleGetTasks = async (filters, sortBy = "createdAt", order = "asc") => {
+const handleGetTasks = async (
+  filters,
+  sortBy = "createdAt",
+  order = "desc"
+) => {
   const sortOptions = {};
 
   const prioritySortOrder = {
