@@ -8,7 +8,10 @@ const handleCreateTask = async (taskData, user) => {
   if (!taskData?.title) {
     throw new ApiError(400, "Title is required");
   }
-
+  const date = new Date();
+  const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1)
+    .toString()
+    .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
   const newTask = await Task.create({
     title: taskData.title,
     description: taskData?.description,
@@ -17,8 +20,7 @@ const handleCreateTask = async (taskData, user) => {
     status: taskData?.status || "todo",
     priority: taskData?.priority || "low",
     duration: taskData?.duration || 0,
-    // due_date: taskData?.due_date || Date.now(),
-    due_date: new Date(Date.now() - 24 * 60 * 60 * 1000),
+    due_date: taskData?.due_date || formattedDate,
   });
 
   return {
@@ -26,7 +28,7 @@ const handleCreateTask = async (taskData, user) => {
   };
 };
 
-const handleGetTasks = async (filters, sortBy = "due_date", order = "asc") => {
+const handleGetTasks = async (filters, sortBy = "createdAt", order = "asc") => {
   const sortOptions = {};
 
   const prioritySortOrder = {
@@ -115,6 +117,12 @@ const handleGenerateFakeTasks = async (taskData, user) => {
   const count = taskData?.count || 10;
   const tasks = [];
   for (let i = 0; i < count; i++) {
+    const fakeDueDate = new Date(faker.date.future());
+    const formattedDueDate = `${fakeDueDate.getFullYear()}-${(
+      fakeDueDate.getMonth() + 1
+    )
+      .toString()
+      .padStart(2, "0")}-${fakeDueDate.getDate().toString().padStart(2, "0")}`;
     const fakeTaskData = {
       title: faker.lorem.sentence(),
       description: faker.lorem.paragraph(),
@@ -122,7 +130,7 @@ const handleGenerateFakeTasks = async (taskData, user) => {
       status: faker.helpers.arrayElement(["todo", "in-progress", "completed"]),
       priority: faker.helpers.arrayElement(["high", "medium", "low"]),
       duration: faker.number.int({ min: 1, max: 10 }),
-      due_date: faker.date.future(),
+      due_date: formattedDueDate,
     };
 
     const result = await handleCreateTask(fakeTaskData, user);
