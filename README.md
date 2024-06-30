@@ -1,4 +1,4 @@
-# Seative Task Server (A Todo Application)
+# Seative Task Server (Todo Application)
 
 **Live Server Link:** [https://seative-server.vercel.app/](https://seative-server.vercel.app/)
 
