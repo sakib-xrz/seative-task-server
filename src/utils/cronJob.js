@@ -5,10 +5,16 @@ const Task = require("../model/task.model.js");
 const checkOverdueTasks = async () => {
   try {
     const now = new Date();
-    const overdueTasks = await Task.find({
-      due_date: { $lt: now },
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+    const incompleteTasks = await Task.find({
       status: { $ne: "completed" },
     }).populate("assigns");
+
+    const overdueTasks = incompleteTasks.filter((task) => {
+      const dueDate = new Date(task?.due_date);
+      return dueDate < today;
+    });
 
     overdueTasks.forEach(async (task) => {
       const assigneeEmails = task.assigns.map((user) => user.email);
