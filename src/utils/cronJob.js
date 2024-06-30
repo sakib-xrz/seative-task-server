@@ -12,7 +12,7 @@ const checkOverdueTasks = async () => {
 
     overdueTasks.forEach(async (task) => {
       const assigneeEmails = task.assigns.map((user) => user.email);
-
+      console.log(assigneeEmails);
       const subject = `Task Overdue Reminder`;
       const text = `The task "${task.title}" is overdue. Please take necessary actions.`;
 
@@ -26,7 +26,6 @@ const checkOverdueTasks = async () => {
 };
 
 // Schedule the job to run at 12:00 AM every day
-// cron.schedule("0 0 * * *", checkOverdueTasks);
-cron.schedule("* * * * *", checkOverdueTasks);
+cron.schedule("0 0 * * *", checkOverdueTasks);
 
 module.exports = checkOverdueTasks;
