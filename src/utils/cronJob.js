@@ -26,6 +26,7 @@ const checkOverdueTasks = async () => {
 };
 
 // Schedule the job to run at 12:00 AM every day
-cron.schedule("0 0 * * *", checkOverdueTasks);
+// cron.schedule("0 0 * * *", checkOverdueTasks);
+cron.schedule("* * * * *", checkOverdueTasks);
 
 module.exports = checkOverdueTasks;
