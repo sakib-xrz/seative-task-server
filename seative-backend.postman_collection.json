@@ -1,0 +1,407 @@
+{
+	"info": {
+		"_postman_id": "6862440f-f812-40cd-a219-817c092eeba6",
+		"name": "seative-backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25329986"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"sakibxrz21@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/auth/login",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						},
+						"description": "### Auth Login\n\nThis endpoint allows users to log in and obtain authentication credentials.\n\n#### Request Body\n\n- `email` (string, required): The email of the user.\n    \n- `password` (string, required): The password of the user.\n    \n\nExample request body:\n\n``` json\n{\n  \"email\": \"user@example.com\",\n  \"password\": \"********\"\n}\n\n ```\n\n#### Response\n\nThe response will include the authentication token and user information upon successful login."
+					},
+					"response": []
+				},
+				{
+					"name": "registration",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Sakibul Islam\",\r\n    \"email\": \"sakibxrz21@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/auth/register",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						},
+						"description": "### Register User\n\nThis endpoint allows the client to register a new user.\n\n#### Request Body\n\n- `name` (string, required): The name of the user.\n    \n- `email` (string, required): The email address of the user.\n    \n- `password` (string, required): The password for the user's account.\n    \n\n#### Response\n\nThe response will contain the status of the registration request."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "get me",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{USER_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/me",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"me"
+							]
+						},
+						"description": "# Retrieve User Information\n\nThis endpoint allows you to retrieve the user information.\n\n## Request\n\n- Method: GET\n    \n- Endpoint: `{{BASE_URL}}/me`\n    \n\n## Response\n\nThe response for this request is a JSON object containing the user information. Below is a sample JSON schema for the response:\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"userId\": {\n      \"type\": \"string\"\n    },\n    \"username\": {\n      \"type\": \"string\"\n    },\n    \"email\": {\n      \"type\": \"string\"\n    },\n    \"createdAt\": {\n      \"type\": \"string\",\n      \"format\": \"date-time\"\n    }\n  }\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "get all users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{USER_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/users",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "task",
+			"item": [
+				{
+					"name": "post a task",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{USER_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Test Task Title\",\r\n    \"description\": \"This field contains the description of the task, which provides details and context about what needs to be done.\",\r\n    \"due_date\": \"2024-06-25\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/tasks",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"tasks"
+							]
+						},
+						"description": "This endpoint allows you to create a new task by sending an HTTP POST request to {{BASE_URL}}/tasks.\n\n### Request Body\n\nThe request body should be in JSON format and include the following parameters:\n\n- `title` (string, required): The title of the task.\n    \n- `description` (string, required): The description of the task.\n    \n\nExample:\n\n``` json\n{\n    \"title\": \"Task Title\",\n    \"description\": \"Task Description\"\n}\n\n ```\n\n### Response\n\nThe response will include the details of the newly created task, including its unique identifier, title, and description."
+					},
+					"response": []
+				},
+				{
+					"name": "get all tasks",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{USER_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/tasks",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": "due_date",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "desc",
+									"disabled": true
+								},
+								{
+									"key": "due_date",
+									"value": "2024-08-15",
+									"disabled": true
+								},
+								{
+									"key": "duration",
+									"value": "3",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "completed",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "cervus",
+									"disabled": true
+								}
+							]
+						},
+						"description": "\nThis endpoint retrieves a list of tasks from the server.\n\n### Request\nNo request body is required for this endpoint. \n\n- Method: GET\n- Base URL: {{BASE_URL}}\n- Endpoint: /tasks\n\n### Response\nThe response will be in JSON format with a status code of 200. It will include the following fields:\n- `statusCode` (number) - The status code of the response.\n- `success` (boolean) - Indicates if the request was successful.\n- `message` (string) - Any additional message related to the response.\n- `meta.total` (number) - The total number of tasks returned in the response.\n- `result` (array) - An array of task objects, each containing the following fields:\n  - `_id` (string) - The unique identifier for the task.\n  - `title` (string) - The title of the task.\n  - `description` (string) - The description of the task.\n  - `assigns` (array) - An array of assigned users for the task.\n  - `status` (string) - The status of the task.\n  - `priority` (string) - The priority level of the task.\n  - `duration` (number) - The duration of the task.\n  - `due_date` (string) - The due date of the task.\n  - `createdAt` (string) - The creation date of the task.\n  - `updatedAt` (string) - The last update date of the task.\n  - `__v` (number) - Version control field.\n\n"
+					},
+					"response": []
+				},
+				{
+					"name": "post fake tasks",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{USER_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"count\": 30\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/tasks/generate-fake-tasks",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"tasks",
+								"generate-fake-tasks"
+							]
+						},
+						"description": "### Generate Fake Tasks\n\nThis endpoint is used to generate fake tasks.\n\n#### Request Body\n\n- `count` (number) - The number of fake tasks to be generated.\n    \n\nExample:\n\n``` json\n{\n  \"count\": 15\n}\n\n ```\n\n#### Response\n\nThe response will contain the details of the generated fake tasks."
+					},
+					"response": []
+				},
+				{
+					"name": "get a task",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{USER_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/tasks/667d9721bae62f8adf81f175",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"tasks",
+								"667d9721bae62f8adf81f175"
+							]
+						},
+						"description": "This endpoint retrieves a specific task identified by its ID. The request does not include a request body, and the task ID is included in the URL path. Upon a successful request, the response will include the details of the task, such as its ID, title, description, status, and any associated tags or categories."
+					},
+					"response": []
+				},
+				{
+					"name": "patch a task",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{USER_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"assigns\": [\"667d881328469be01eaaced1\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/tasks/667db0306720ac329b7d016d",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"tasks",
+								"667db0306720ac329b7d016d"
+							]
+						},
+						"description": "This HTTP PATCH request is used to update a specific task identified by its ID. The request should include a JSON payload in the raw request body type with the \"title\" field to update the title of the task.\n\n### Request Body\n\n- title (string, required): The updated title of the task.\n    \n\n### Response\n\nThe response will contain the updated details of the task, including the ID, title, and any other relevant information."
+					},
+					"response": []
+				},
+				{
+					"name": "delete a task",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{USER_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/tasks/667d9721bae62f8adf81f175",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"tasks",
+								"667d9721bae62f8adf81f175"
+							]
+						},
+						"description": "### Delete Task\n\nThis endpoint is used to delete a specific task identified by its unique ID.\n\n#### Request Body\n\nThis request does not require a request body.\n\n#### Response\n\nThe response will not contain a response body. The status code will indicate the success or failure of the delete operation."
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "BASE_URL",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "USER_TOKEN",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
